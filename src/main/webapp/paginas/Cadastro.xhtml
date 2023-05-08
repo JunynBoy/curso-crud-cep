@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+	<title>Rang-CEP's</title>
+	<link rel="stylesheet" type="text/css"
+		href="../resources/css/style.css" />
+</h:head>
+<h:body>
+	<header>
+        <img src="../resources/imagens/rang1.png" alt="logo da rang"/>
+        <div class="about">
+        	<a href="../index.xhtml">Home</a>
+            <a href="https://github.com/JunynBoy" target="_blank">GitHub</a>
+            <a href="https://www.linkedin.com/in/marcos-gasparini-97624a218/" target="_blank">Linkedin</a>
+        </div>
+    </header>
+
+	<section>
+		<div class="layout">
+			<p:card style="margin:20px;">
+				<h:form id="form">
+					<p:growl autoUpdate="true" />
+					<h2>Preencha os Campos para realizar um cadastro:</h2>
+					<p:panelGrid columns="2" styleClass="ui-panelgrid-blank ui-fluid">
+
+						<p:outputLabel value="Nome da Unidade" />
+						<p:inputText size="30"
+							value="#{unidadeDeSaudeMB.unidadeSaude.nomeEstabelecimento}"
+							required="true" label="Nome da Unidade" />
+
+						<p:outputLabel value="CNES" />
+						<p:inputText size="30" maxlength="7"
+							value="#{unidadeDeSaudeMB.unidadeSaude.cnes}" required="true"
+							label="CNES" />
+
+						<p:outputLabel value="Cep de início" />
+						<p:inputMask mask="99999-999"
+							value="#{unidadeDeSaudeMB.unidadeSaude.cepInicio}"
+							label="Cep de início" />
+
+						<p:outputLabel value="Cep de final" />
+						<p:inputMask mask="99999-999"
+							value="#{unidadeDeSaudeMB.unidadeSaude.cepFinal}"
+							label="Cep de final" />
+
+						<p:commandButton value="Cadastrar" icon="pi pi-save" styleClass="ui-button-success"
+							action="#{unidadeDeSaudeMB.adicionar}" update="formtabela form"
+							id="button" />
+
+					</p:panelGrid>
+				</h:form>
+			</p:card>
+			<p:card style="margin:20px;">
+				<h:form id="formtabela" prependId="false">
+					<h3>Cadastros:</h3>
+					<p:dataTable value="#{unidadeDeSaudeMB.unidades}" var="u"
+						id="tabela" paginator="true" rows="5">
+						<p:column headerText="Id" style="width:30px;">
+							<p:outputLabel value="#{u.id}" />
+						</p:column>
+						<p:column headerText="Nome do Estabelecimento">
+							<p:outputLabel value="#{u.nomeEstabelecimento}" />
+						</p:column>
+						<p:column headerText="CEP de inicio">
+							<p:outputLabel value="#{u.cepInicio}" />
+						</p:column>
+						<p:column headerText="CEP final">
+							<p:outputLabel value="#{u.cepFinal}" />
+						</p:column>
+						<p:column headerText="CNES">
+							<p:outputLabel value="#{u.cnes}" />
+						</p:column>
+						<p:column headerText="" width="10%">
+							<p:commandButton id="alterar" icon="pi pi-cog" styleClass="ui-button-warning rounded-button -ui-button-flat"
+								update="panelChangeUnidade" process="@this"
+								actionListener="#{unidadeDeSaudeMB.carregaUnidade(u)}"
+								onclick="PF('alterarUnidadeDlg').show()">
+
+							</p:commandButton>
+							<p:commandButton style="margin-left: 5px" action="#{unidadeDeSaudeMB.excluir(u)}" styleClass="p-mr-1 ui-button-danger rounded-button -ui-button-flat"
+								icon="pi pi-trash" update="formtabela form" process="@this">
+								<p:confirm type="popup" header="Confirmation"
+									message="Tem certeza que gostaria de deletar este cadastro?"
+									icon="pi pi-info-circle" />
+							</p:commandButton>
+
+						</p:column>
+
+					</p:dataTable>
+					<p:dialog header="Alterar unidade" widgetVar="alterarUnidadeDlg"
+						minHeight="200"  showEffect="fade">
+						<p:panelGrid id="panelChangeUnidade" columns="2"
+							styleClass="ui-panelgrid-blank ui-fluid">
+
+							<p:outputLabel value="Nome da Unidade" />
+							<p:inputText size="30"
+								value="#{unidadeDeSaudeMB.unidadeSaudeUpdate.nomeEstabelecimento}"
+								required="true" label="Nome da Unidade" />
+
+							<p:outputLabel value="CNES" />
+							<p:inputText size="30" maxlength="7"
+								value="#{unidadeDeSaudeMB.unidadeSaudeUpdate.cnes}"
+								required="true" label="CNES" />
+
+							<p:outputLabel value="Cep de início" />
+							<p:inputMask mask="99999-999"
+								value="#{unidadeDeSaudeMB.unidadeSaudeUpdate.cepInicio}"
+								label="Cep de início" />
+
+							<p:outputLabel value="Cep de final" />
+							<p:inputMask mask="99999-999"
+								value="#{unidadeDeSaudeMB.unidadeSaudeUpdate.cepFinal}"
+								label="Cep de final" />
+
+							<p:commandButton value="Alterar"
+								action="#{unidadeDeSaudeMB.alterarUnidade}"
+								update="formtabela form panelChangeUnidade"
+								oncomplete="PF('alterarUnidadeDlg').close()" id="button" />
+
+						</p:panelGrid>
+					</p:dialog>
+					<p:confirmPopup global="true">
+						<p:commandButton value="CANCELAR" type="button"
+							styleClass="ui-confirm-popup-no ui-button-flat ui-button-danger" />
+						<p:commandButton value="DELETAR" type="button"
+							styleClass="ui-confirm-popup-yes ui-button-danger" />
+					</p:confirmPopup>
+				</h:form>
+			</p:card>
+		</div>
+	</section>
+
+
+
+
+	<footer>
+		<p>
+			Desenvolvido por <SPAN>Marcos Gasparini Junior</SPAN>
+		</p>
+	</footer>
+</h:body>
+</html>
