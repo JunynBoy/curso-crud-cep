@@ -17,8 +17,6 @@ public class UnidadeDeSaudeService implements Serializable{
 	private DAO<UnidadeDeSaude> dao;
 	
 	public void salvar (UnidadeDeSaude u) throws NegocioException {
-		
-
 		dao.salvar(u);
 	}
 	
@@ -34,12 +32,14 @@ public class UnidadeDeSaudeService implements Serializable{
 	    return dao.buscarUmPorNome(nomeEstabelecimento);
 	}
 	
+	public List<UnidadeDeSaude>  buscar(String nomeEstabelecimento) {
+	    return dao.buscar(nomeEstabelecimento);
+	}
+	
 	public List<UnidadeDeSaude> todasMenosUm(UnidadeDeSaude update){
 		return dao.buscarUpdate(update);
 	}
 	
-	
 
-	
 
 }

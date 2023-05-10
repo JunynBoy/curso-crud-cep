@@ -49,7 +49,7 @@
 							value="#{unidadeDeSaudeMB.unidadeSaude.cepFinal}"
 							label="Cep de final" />
 
-						<p:commandButton value="Cadastrar" icon="pi pi-save" styleClass="ui-button-success"
+						<p:commandButton value="Cadastrar" icon="pi pi-save" styleClass="ui-button-success ui-button-secondary"
 							action="#{unidadeDeSaudeMB.adicionar}" update="formtabela form"
 							id="button" />
 
@@ -76,14 +76,14 @@
 						<p:column headerText="CNES">
 							<p:outputLabel value="#{u.cnes}" />
 						</p:column>
-						<p:column headerText="" width="10%">
-							<p:commandButton id="alterar" icon="pi pi-cog" styleClass="ui-button-warning rounded-button -ui-button-flat"
+						<p:column headerText="" width="10%" style="text-align: center;">
+							<p:commandButton id="alterar" icon="pi pi-cog" styleClass="rounded-button ui-button-secondary ui-button-outlined"
 								update="panelChangeUnidade" process="@this"
 								actionListener="#{unidadeDeSaudeMB.carregaUnidade(u)}"
 								onclick="PF('alterarUnidadeDlg').show()">
 
 							</p:commandButton>
-							<p:commandButton style="margin-left: 5px" action="#{unidadeDeSaudeMB.excluir(u)}" styleClass="p-mr-1 ui-button-danger rounded-button -ui-button-flat"
+							<p:commandButton style="margin-left: 5px" action="#{unidadeDeSaudeMB.excluir(u)}" styleClass="p-mr-1 rounded-button ui-button-danger ui-button-outlined"
 								icon="pi pi-trash" update="formtabela form" process="@this">
 								<p:confirm type="popup" header="Confirmation"
 									message="Tem certeza que gostaria de deletar este cadastro?"
@@ -101,27 +101,27 @@
 							<p:outputLabel value="Nome da Unidade" />
 							<p:inputText size="30"
 								value="#{unidadeDeSaudeMB.unidadeSaudeUpdate.nomeEstabelecimento}"
-								required="true" label="Nome da Unidade" />
+								required="true" label="Nome da Unidade" id="nm"/>
 
 							<p:outputLabel value="CNES" />
 							<p:inputText size="30" maxlength="7"
 								value="#{unidadeDeSaudeMB.unidadeSaudeUpdate.cnes}"
-								required="true" label="CNES" />
+								required="true" label="CNES" id="CNES"/>
 
 							<p:outputLabel value="Cep de início" />
 							<p:inputMask mask="99999-999"
 								value="#{unidadeDeSaudeMB.unidadeSaudeUpdate.cepInicio}"
-								label="Cep de início" />
+								label="Cep de início" id="CepI" />
 
 							<p:outputLabel value="Cep de final" />
 							<p:inputMask mask="99999-999"
 								value="#{unidadeDeSaudeMB.unidadeSaudeUpdate.cepFinal}"
-								label="Cep de final" />
+								label="Cep de final" id="CepF" />
 
 							<p:commandButton value="Alterar"
 								action="#{unidadeDeSaudeMB.alterarUnidade}"
-								update="formtabela form panelChangeUnidade"
-								oncomplete="PF('alterarUnidadeDlg').close()" id="button" />
+								update="formtabela form panelChangeUnidade button"
+								 id="button" styleClass="ui-button-secondary"/>
 
 						</p:panelGrid>
 					</p:dialog>

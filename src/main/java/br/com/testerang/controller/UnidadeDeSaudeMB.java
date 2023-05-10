@@ -8,7 +8,6 @@ import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-
 import br.com.testerang.model.UnidadeDeSaude;
 import br.com.testerang.service.UnidadeDeSaudeService;
 import br.com.testerang.utility.Message;
@@ -51,35 +50,29 @@ public class UnidadeDeSaudeMB implements Serializable {
 	public void carregar2() {
 		unidades = service.todasAsUnidades();
 	}
-	
+
 	public void carregaUnidade(UnidadeDeSaude unidadeScreen) {
+		unidadeSaudeUpdate = new UnidadeDeSaude();
+		System.out.println(unidadeScreen);
 		this.unidadeSaudeUpdate = unidadeScreen;
-		System.out.println("BOTAO DO FRONT: " + unidadeSaudeUpdate);
 	}
 
 	public void adicionar() {
 
-	    
-	    if (!validar()) {
-	        try {
-	            unidadeSaude.setCepInicio(unidadeSaude.getCepInicio().replace("-", ""));
-	            unidadeSaude.setCepFinal(unidadeSaude.getCepFinal().replace("-", ""));
-	            service.salvar(unidadeSaude);
-
-	            unidadeSaude = new UnidadeDeSaude();
-	            carregar2();
-
-	            Message.info("Unidade de saúde salva com sucesso!");
-	        } catch (NegocioException e) {
-	            Message.erro("Erro ao salvar unidade de saúde: " + e.getMessage());
-	        }
-	    }
+		if (!validar()) {
+			try {
+				service.salvar(unidadeSaude);
+				unidadeSaude = new UnidadeDeSaude();
+				carregar2();
+				Message.info("Unidade de saúde salva com sucesso!");
+			} catch (NegocioException e) {
+				Message.erro("Erro ao salvar unidade de saúde: " + e.getMessage());
+			}
+		}
 	}
 
-	
-
 	public void excluir(UnidadeDeSaude unidadeDelete) {
-		
+
 		try {
 			String nomeEstab = unidadeDelete.getNomeEstabelecimento();
 			service.remover(unidadeDelete);
@@ -93,9 +86,9 @@ public class UnidadeDeSaudeMB implements Serializable {
 	}
 
 	public void buscar() {
-		
+
 		try {
-			var testeLista = service.buscarPorNome(nomeEstabelecimento);
+			var testeLista = service.buscar(nomeEstabelecimento);
 			setResultados(testeLista);
 		} catch (Exception e) {
 			Message.erro(e.getMessage());
@@ -103,84 +96,77 @@ public class UnidadeDeSaudeMB implements Serializable {
 
 	}
 
-	
 	public boolean validar() {
-		
-		
+
 		boolean encontrouUnidade = false;
-	    resultados = service.todasAsUnidades();
-	    for (UnidadeDeSaude unidade : resultados) {
-	        int cepInicio = Integer.parseInt(unidade.getCepInicio().replace("-", ""));
-	        int cepFinal = Integer.parseInt(unidade.getCepFinal().replace("-", ""));
-	        int unidadeCepInicio = Integer.parseInt(unidadeSaude.getCepInicio().replace("-", ""));
-	        int unidadeCepFinal = Integer.parseInt(unidadeSaude.getCepFinal().replace("-", ""));
-	        
-	       
-	        
-	        if (unidadeCepInicio >= cepInicio && unidadeCepInicio <= cepFinal || unidadeCepFinal <= cepFinal && unidadeCepFinal >= cepInicio ) {
-	            Message.warn("Já existe uma unidade que atende neste Intervalo de Cep");
-	            return encontrouUnidade = true;
-	        }else if(unidadeSaude.getCnes().equals(unidade.getCnes())){
-	        	Message.warn("Já existe uma unidade com este CNES cadastrado");
-	        	 return encontrouUnidade = true;
-	        }
-	        
-	        
-	    }
-	    return encontrouUnidade;
+		resultados = service.todasAsUnidades();
+		Integer unidadeCepInicio = Integer.parseInt(unidadeSaude.getCepInicio().replace("-", ""));
+		Integer unidadeCepFinal = Integer.parseInt(unidadeSaude.getCepFinal().replace("-", ""));
+
+		for (UnidadeDeSaude unidade : resultados) {
+			Integer cepInicio = Integer.parseInt(unidade.getCepInicio().replace("-", ""));
+			Integer cepFinal = Integer.parseInt(unidade.getCepFinal().replace("-", ""));
+
+			if (unidadeCepInicio >= cepInicio && unidadeCepInicio <= cepFinal
+					|| unidadeCepFinal <= cepFinal && unidadeCepFinal >= cepInicio) {
+				Message.warn("Já existe uma unidade que atende neste Intervalo de Cep");
+				return encontrouUnidade = true;
+			} else if (unidadeSaude.getCnes().equals(unidade.getCnes())) {
+				Message.warn("Já existe uma unidade com este CNES cadastrado");
+				return encontrouUnidade = true;
+			}
+
+		}
+		return encontrouUnidade;
 	}
-	
 
-		
-	
 	public void alterarUnidade() {
-//		var teste = unidadeSaudeUpdate;
-//		boolean encontrouUnidade = false;
-	    resultados = service.todasMenosUm(unidadeSaudeUpdate);
-	    
-	    
-//	    for (UnidadeDeSaude unidade : resultados) {
-//	        Integer cepInicio = Integer.parseInt(unidade.getCepInicio().replace("-", ""));
-//	        Integer cepFinal = Integer.parseInt(unidade.getCepFinal().replace("-", ""));
-//	        Integer unidadeCepInicio = Integer.parseInt(unidadeSaudeUpdate.getCepInicio().replace("-", ""));
-//	        Integer unidadeCepFinal = Integer.parseInt(unidadeSaudeUpdate.getCepFinal().replace("-", ""));
-//	        System.out.println(unidadeSaudeUpdate.getNomeEstabelecimento());
-//	        System.out.println("Unidade ------ " + unidade.toString());
-//	       
-//	        
-//	        if (unidadeCepInicio >= cepInicio && unidadeCepInicio <= cepFinal || unidadeCepFinal <= cepFinal && unidadeCepFinal >= cepInicio ) {
-//	            Message.warn("Já existe uma unidade que atende neste Intervalo de Cep");
-//	            encontrouUnidade = true;
-//	        }else if(unidadeSaudeUpdate.getCnes().equals(unidade.getCnes())){
-//	        	Message.warn("Já existe uma unidade com este CNES cadastrado");
-//	        	encontrouUnidade = true;
-//	        }
-//	        
-//	        
-//	    }
-	    
-	
-		
-//		if(encontrouUnidade == false) {
-			try {
-				service.salvar(unidadeSaudeUpdate);
-				carregar2();
 
+		try {
+
+			boolean encontrouUnidade = false;
+			System.out.println("Chegada do método" + unidadeSaudeUpdate);
+			resultados = service.todasMenosUm(unidadeSaudeUpdate);
+			Integer unidadeCepInicio = Integer.parseInt(unidadeSaudeUpdate.getCepInicio().replace("-", ""));
+			Integer unidadeCepFinal = Integer.parseInt(unidadeSaudeUpdate.getCepFinal().replace("-", ""));
+			System.out.println(unidadeSaudeUpdate.getNomeEstabelecimento());
+			System.out.println("CI: " + unidadeCepInicio + " CF: " + unidadeCepFinal);
+
+			for (UnidadeDeSaude unidade : resultados) {
+				Integer cepInicio = Integer.parseInt(unidade.getCepInicio().replace("-", ""));
+				Integer cepFinal = Integer.parseInt(unidade.getCepFinal().replace("-", ""));
+
+				if (unidadeCepInicio >= cepInicio && unidadeCepInicio <= cepFinal
+						|| unidadeCepFinal <= cepFinal && unidadeCepFinal >= cepInicio) {
+
+					Message.warn("Já existe uma unidade que atende neste Intervalo de Cep");
+					encontrouUnidade = true;
+					break;
+					
+				} else if (unidadeSaudeUpdate.getCnes().equals(unidade.getCnes())) {
+
+					Message.warn("Já existe uma unidade com este CNES cadastrado");
+					encontrouUnidade = true;
+					break;
+				}
+
+			}
+
+			if (!encontrouUnidade) {
+
+				service.salvar(unidadeSaudeUpdate);
 				Message.info(unidadeSaudeUpdate.getNomeEstabelecimento() + " foi alterado com sucesso");
 				unidadeSaudeUpdate = new UnidadeDeSaude();
-			} catch (NegocioException e) {
-				Message.erro(e.getMessage());
-			}
-//		}else {
-//			Message.warn("Não foi possível atualizar o cadastro");
-//		}
-	
-		
-//	}
-	
-	}
-	
+				carregar2();
 
+			} else {
+				System.out.println("Caiu no else");
+				Message.warn("Não foi possível salvar a sua alteração");
+			}
+		} catch (Exception e) {
+			Message.erro(e.getMessage());
+		}
+	}
 
 	public UnidadeDeSaude getUnidadeSaude() {
 		return unidadeSaude;

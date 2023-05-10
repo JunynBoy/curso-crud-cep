@@ -41,10 +41,10 @@ header {
 
 .conteudo{
     max-width: 600px;
-    background: linear-gradient(1deg, #313131, transparent);
+    background: linear-gradient(1deg, #2b2b2b, transparent);
     margin: auto;
     display: block;
-    padding: 20px;
+    padding: 50px;
     box-shadow: 3px 0px 5px rgba(0, 0, 0, 0.082);
     min-height: 100vh;
     text-align: center;
@@ -52,31 +52,47 @@ header {
     
 }
 
-.conteudo h1{
-    text-align: center;
-   
+.conteudo a {
+	color: red;
 }
+
+.conteudo h1, h2, p{
+    text-align: center;
+    padding: 15px;
+}
+
+
 
 .conteudo p{
     text-align: justify;
     padding: 15px;
+    margin: auto;
 }
 
 .conteudo .dv1 {
     display: block;
     text-align: center;
     padding: 10px;
+    margin: -9px;
+    padding-top: 100px;
     
 }
 
-.conteudo .dv1 iframe {
+.conteudo  {
     box-shadow: 3px 0px 5px rgba(0, 0, 0, 0.082);
+    min-width: 254px;
+    max-width: 1000px;
 }
+
+
+
 
 .busca{
 	display: flex;
-    justify-content: center;
+    justify-content: space-around;
     align-items: center;
+    margin: auto;
+    max-width: 522px;
 }
 
 section{
@@ -117,8 +133,19 @@ body .ui-button.ui-button-secondary, body .ui-splitbutton.ui-button-secondary > 
 @media only screen and (max-width: 1200px) {
 	.layout{
 		flex-wrap: wrap;
-	}		
+	}	
 	
+}
+
+@media only screen and (max-width: 626px) {
+	
+	iframe {
+ 		width: -webkit-fill-available;	
+	}
+	
+	*{
+		font-size: xxx-large;
+	}
 }
 
 

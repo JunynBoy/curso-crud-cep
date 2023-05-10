@@ -57,6 +57,15 @@ public class DAO<T extends Base> implements Serializable {
 	    return query.getResultList();
 	}
 	
+	@SuppressWarnings("unchecked")
+	public List<T> buscar(String textoBusca) {
+		Query query = manager.createQuery("SELECT e FROM UnidadeDeSaude e WHERE e.nomeEstabelecimento LIKE :textoBusca OR e.cnes LIKE :textoBusca OR e.cepInicio LIKE :textoBusca OR e.cepInicio LIKE :textoBusca OR e.cepFinal LIKE :textoBusca")
+	        .setParameter("textoBusca", "%" + textoBusca + "%");
+	    return query.getResultList();
+	}
+	
+	
+	
 	
 	@SuppressWarnings("unchecked")
 	public List<T> buscarUpdate(UnidadeDeSaude update) {
