@@ -14,12 +14,10 @@ public class DAO<T extends Base> implements Serializable {
 	private static EntityManager manager = ConnectionFactory.getEntityManager();
 
 	public T buscarPorId(Class<T> clazz, Long id) {
-		System.out.println("buscou");
 		return manager.find(clazz, id);
 	}
 
 	public void salvar(T t) {
-		System.out.println("salvou");
 		try {
 			manager.getTransaction().begin();
 
@@ -36,7 +34,6 @@ public class DAO<T extends Base> implements Serializable {
 	}
 
 	public void remover(Class<T> clazz, Long id) {
-		System.out.println("removeu");
 		T t = buscarPorId(clazz, id);
 		try {
 			manager.getTransaction().begin();

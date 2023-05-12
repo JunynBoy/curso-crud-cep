@@ -28,13 +28,6 @@ public class UnidadeDeSaudeMB implements Serializable {
 
 	private String nomeEstabelecimento;
 
-	public String getNomeEstabelecimento() {
-		return nomeEstabelecimento;
-	}
-
-	public void setNomeEstabelecimento(String nomeEstabelecimento) {
-		this.nomeEstabelecimento = nomeEstabelecimento;
-	}
 
 	@Inject
 	private UnidadeDeSaudeService service;
@@ -205,4 +198,11 @@ public class UnidadeDeSaudeMB implements Serializable {
 		this.resultados = resultados;
 	}
 
+	public String getNomeEstabelecimento() {
+		return nomeEstabelecimento;
+	}
+
+	public void setNomeEstabelecimento(String nomeEstabelecimento) {
+		this.nomeEstabelecimento = nomeEstabelecimento;
+	}
 }
