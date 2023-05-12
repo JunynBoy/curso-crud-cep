@@ -10,7 +10,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "estabelecimento")
+@Table(name = "unidade_de_saude")
 public class UnidadeDeSaude implements Serializable , Base {
 
 	private static final long serialVersionUID = 1L;

@@ -4,9 +4,11 @@ import java.io.Serializable;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
-import javax.enterprise.context.SessionScoped;
+import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+
+import org.apache.commons.lang3.SerializationUtils;
 
 import br.com.testerang.model.UnidadeDeSaude;
 import br.com.testerang.service.UnidadeDeSaudeService;
@@ -14,7 +16,7 @@ import br.com.testerang.utility.Message;
 import br.com.testerang.utility.NegocioException;
 
 @Named
-@SessionScoped
+@ViewScoped
 public class UnidadeDeSaudeMB implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -36,7 +38,7 @@ public class UnidadeDeSaudeMB implements Serializable {
 
 	@Inject
 	private UnidadeDeSaudeService service;
-
+	
 	private List<UnidadeDeSaude> unidades;
 
 	private String termoBusca;
@@ -53,12 +55,11 @@ public class UnidadeDeSaudeMB implements Serializable {
 
 	public void carregaUnidade(UnidadeDeSaude unidadeScreen) {
 		unidadeSaudeUpdate = new UnidadeDeSaude();
-		System.out.println(unidadeScreen);
-		this.unidadeSaudeUpdate = unidadeScreen;
+		this.unidadeSaudeUpdate = (UnidadeDeSaude) SerializationUtils.clone(unidadeScreen);
 	}
+	
 
 	public void adicionar() {
-
 		if (!validar()) {
 			try {
 				service.salvar(unidadeSaude);
@@ -72,7 +73,6 @@ public class UnidadeDeSaudeMB implements Serializable {
 	}
 
 	public void excluir(UnidadeDeSaude unidadeDelete) {
-
 		try {
 			String nomeEstab = unidadeDelete.getNomeEstabelecimento();
 			service.remover(unidadeDelete);
@@ -86,7 +86,6 @@ public class UnidadeDeSaudeMB implements Serializable {
 	}
 
 	public void buscar() {
-
 		try {
 			var testeLista = service.buscar(nomeEstabelecimento);
 			setResultados(testeLista);
@@ -123,16 +122,13 @@ public class UnidadeDeSaudeMB implements Serializable {
 	public void alterarUnidade() {
 
 		try {
-
+			
 			boolean encontrouUnidade = false;
-			System.out.println("Chegada do método" + unidadeSaudeUpdate);
 			resultados = service.todasMenosUm(unidadeSaudeUpdate);
 			Integer unidadeCepInicio = Integer.parseInt(unidadeSaudeUpdate.getCepInicio().replace("-", ""));
 			Integer unidadeCepFinal = Integer.parseInt(unidadeSaudeUpdate.getCepFinal().replace("-", ""));
-			System.out.println(unidadeSaudeUpdate.getNomeEstabelecimento());
-			System.out.println("CI: " + unidadeCepInicio + " CF: " + unidadeCepFinal);
-
-			for (UnidadeDeSaude unidade : resultados) {
+			System.out.println(unidadeCepInicio);
+			for (var unidade : resultados) {
 				Integer cepInicio = Integer.parseInt(unidade.getCepInicio().replace("-", ""));
 				Integer cepFinal = Integer.parseInt(unidade.getCepFinal().replace("-", ""));
 
@@ -142,9 +138,7 @@ public class UnidadeDeSaudeMB implements Serializable {
 					Message.warn("Já existe uma unidade que atende neste Intervalo de Cep");
 					encontrouUnidade = true;
 					break;
-					
 				} else if (unidadeSaudeUpdate.getCnes().equals(unidade.getCnes())) {
-
 					Message.warn("Já existe uma unidade com este CNES cadastrado");
 					encontrouUnidade = true;
 					break;
@@ -160,7 +154,6 @@ public class UnidadeDeSaudeMB implements Serializable {
 				carregar2();
 
 			} else {
-				System.out.println("Caiu no else");
 				Message.warn("Não foi possível salvar a sua alteração");
 			}
 		} catch (Exception e) {
@@ -186,10 +179,6 @@ public class UnidadeDeSaudeMB implements Serializable {
 
 	public List<UnidadeDeSaude> getUnidades() {
 		return unidades;
-	}
-
-	public void setUnidades(List<UnidadeDeSaude> unidades) {
-		this.unidades = unidades;
 	}
 
 	public UnidadeDeSaude getUnidadeSaudeUpdate() {

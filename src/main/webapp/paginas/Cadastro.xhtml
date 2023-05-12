@@ -8,8 +8,8 @@
 <h:head>
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
 	<title>Rang-CEP's</title>
-	<link rel="stylesheet" type="text/css"
-		href="../resources/css/style.css" />
+	<link rel="stylesheet" type="text/css" href="../resources/css/style.css" />
+	<link rel="shortcut icon" type="image/x-icon" href="../resources/imagens/favicon.ico"/>
 </h:head>
 <h:body>
 	<header>
@@ -129,7 +129,7 @@
 						<p:commandButton value="CANCELAR" type="button"
 							styleClass="ui-confirm-popup-no ui-button-flat ui-button-danger" />
 						<p:commandButton value="DELETAR" type="button"
-							styleClass="ui-confirm-popup-yes ui-button-danger" />
+							styleClass="ui-confirm-popup-yes ui-button-danger" process="@this"/>
 					</p:confirmPopup>
 				</h:form>
 			</p:card>
