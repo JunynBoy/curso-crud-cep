@@ -13,16 +13,15 @@
 </h:head>
 <h:body>
 	<header>
-        <img src="../resources/imagens/rang1.png" alt="logo da rang"/>
-        <div class="about">
-        	<a href="../index.xhtml">Home</a>
-            <a href="https://github.com/JunynBoy" target="_blank">GitHub</a>
-            <a href="https://www.linkedin.com/in/marcos-gasparini-97624a218/" target="_blank">Linkedin</a>
+        <a href="../index.xhtml"><img src="../resources/imagens/rang1.png" alt="logo da rang"/></a>
+        <div class="nav">
+            <a href="https://github.com/JunynBoy">GitHub</a>
+            <a href="https://www.linkedin.com/in/marcos-gasparini-97624a218/">Linkedin</a>
         </div>
     </header>
 
-	<section>
-		<div class="layout">
+	
+		<div class="layoutCadastro">
 			<p:card style="margin:20px;">
 				<h:form id="form">
 					<p:growl autoUpdate="true" />
@@ -55,7 +54,9 @@
 
 					</p:panelGrid>
 				</h:form>
+			
 			</p:card>
+				
 			<p:card style="margin:20px;">
 				<h:form id="formtabela" prependId="false">
 					<h3>Cadastros:</h3>
@@ -134,15 +135,15 @@
 				</h:form>
 			</p:card>
 		</div>
-	</section>
+	
 
 
 
 
 	<footer>
-		<p>
-			Desenvolvido por <SPAN>Marcos Gasparini Junior</SPAN>
-		</p>
-	</footer>
+            <p>
+                Desenvolvido por <SPAN class="red">Marcos Gasparini Junior</SPAN>
+            </p>
+        </footer>
 </h:body>
 </html>

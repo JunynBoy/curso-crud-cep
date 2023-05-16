@@ -6,6 +6,7 @@
     margin: 0px;
     padding: 0px;
     font-family: 'Castoro Titling', cursive;
+    
 }
 
 
@@ -14,25 +15,37 @@ body{
 }
 
 header {
-    background-color: black;
+    backdrop-filter: blur(5px);
+    box-shadow: 1px 1px 5px #0000007d;
+    background: linear-gradient(45deg, black, transparent);
+    width: 100%;
+    position: fixed;
     padding: 10px;
     display: flex;
     justify-content: space-around;
     align-items: center;
+    z-index: 9;
+}
+
+.headerfixo{
+	position: initial;
 }
 
 
-.about{
+.nav{
     display: block;
 }
 
-.about a {
+.nav a {
     padding: 15px;
     text-decoration: none;
     color: #ffffff;
+    text-shadow: 1px 1px 1px rgb(43, 42, 42);
 }
 
-.about a:hover {
+
+
+.nav a:hover {
 	transition: 1s;
     padding: 15px;
     text-decoration: none;
@@ -56,7 +69,9 @@ header {
 	color: red;
 }
 
-.conteudo h1, h2, p{
+.conteudo > h1,
+.conteudo > h2,
+.conteudo > p {
     text-align: center;
     padding: 15px;
 }
@@ -95,16 +110,23 @@ header {
     max-width: 522px;
 }
 
-section{
-    background-image: url(https://c.pxhere.com/photos/27/00/city_windows_sky_urban_blackandwhite_monochrome_architecture_clouds-335655.jpg!d);
-    background-size: cover;
-}
+
 
 
 .layout{
+	background-image: url(../imagens/newyorkEdited.jpg) ;
 	display: flex;
-    min-height: 88vh;
-    align-items: flex-start;
+	align-items: center;
+	flex-direction: row;
+	min-height: 88vh;
+}
+
+.layoutCadastro{
+	background-image: url(../imagens/newyorkEdited.jpg) ;
+	display: flex;
+	align-items: center;
+	flex-direction: row;
+	min-height: 100vh;
 }
 
 
@@ -115,11 +137,12 @@ footer{
     padding: 10px;
     color: #ffffff;
     background-color: black;
-    text-align: center;
+    
+    
 }
 
-footer span{
-    color: #e60d27;
+.red{
+    color: #de0e1f;
 }
 
 
@@ -133,22 +156,232 @@ body .ui-button.ui-button-secondary, body .ui-splitbutton.ui-button-secondary > 
 @media only screen and (max-width: 1200px) {
 	.layout{
 		flex-wrap: wrap;
-	}	
-	
-}
-
-@media only screen and (max-width: 626px) {
-	
-	iframe {
- 		width: -webkit-fill-available;	
 	}
 	
-	*{
-		font-size: xxx-large;
+	.lyt-1{
+		margin-top: 61px;
 	}
+	.layoutCadastro{
+	    flex-direction: row;
+    	min-height: 100vh;
+   	 	flex-wrap: wrap;
+    	justify-content: center;
+		flex-wrap: wrap;
+	}
+
+    
+}
+
+@media only screen and (max-width: 1336px) {
+	
+    .line{
+        display: none;
+    }
+    
+
+}
+
+.ui-card-body{
+	margin-top: 50px;
 }
 
 
 
 
 
+
+/* ---CODIGO NOVO ------*/
+
+
+.main{
+    /*background-image: url(https://c.pxhere.com/photos/27/00/city_windows_sky_urban_blackandwhite_monochrome_architecture_clouds-335655.jpg!d);*/
+    background-image: url(../imagens/newyorkEdited.jpg) ;
+    background-size: cover;
+    display: flex; 
+    align-items: flex-end; 
+    justify-content: space-around;
+    flex-wrap: wrap; 
+	background-attachment: fixed;
+}
+
+
+
+.conteudo_inicial{
+    min-height: 5vh;
+    max-width: 600px;
+    padding: 250px 20px 150px 20px;
+    display: block;
+    text-shadow: 0.03rem 0.03rem #000000;
+}
+
+
+
+.botoes{
+    
+    font-size: small;
+}
+
+
+.custom-btn{
+    /* width: 130px; */
+    /* height: 40px; */
+    color: #fff;
+    border-radius: 5px;
+    padding: 10px 25px;
+    font-family: 'Castoro Titling', cursive;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    display: inline-block;
+    box-shadow: inset 2px 2px 2px 0px rgba(0, 0, 0, 0.233), 7px 7px 20px 0px rgba(0,0,0,.1), 4px 4px 5px 0px rgba(0,0,0,.1);
+    outline: none;
+}
+
+
+.btn-1 {
+    background: linear-gradient(0deg, #de0e1f 0%, #ad1116 100%);
+    border: none;
+    text-shadow: 1px 1px 0.5px #000000b8;
+    transition: 1ms;
+}
+
+.btn-1:hover{
+    box-shadow: 3px 2px 7px #000000b3;
+    background: linear-gradient(0deg, #af0c1a 0%, rgb(128, 1, 1) 100%);
+}
+
+.btn-1:active{
+    box-shadow: inset 3px 3px 3px 0px #00000063;;
+
+}
+
+
+.carta {
+    background-color: #f8f5de;
+    background-image: linear-gradient(to right, rgba(255,210,0,0.4), rgba(200, 160, 0, 0.1) 11%, rgba(0,0,0,0) 35%, rgba(200, 160, 0, 0.1) 65%);
+    box-shadow: inset 0 0 75px rgba(255,210,0,0.3), inset 0 0 20px rgba(255,210,0,0.4), inset 0 0 30px rgba(220,120,0,0.8);
+    color: rgba(0,0,0,0.5);
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.curriculo{
+	text-align: center;
+}
+
+.curriculo > .custom-btn{
+	padding: 20px;
+}
+
+
+
+
+.foto_eu img{
+    max-width: 560px;
+    display: block;
+}
+
+
+.carta > div {
+    max-width: 500px;
+}
+
+.about_this{
+    margin: 48px 75px;
+
+}
+
+#projeto > h3{
+    text-align: center;
+}
+
+#projeto > ul{
+    text-indent: 6rem;
+    list-style-type: georgian;
+    list-style-position: inside;
+    margin-bottom: 15px;
+}
+
+#projeto > li{
+    list-style-position: center;
+}
+
+#projeto > iframe {
+    margin: auto;
+    border-radius: 5px;
+    position: relative;
+    width: 100%;
+    height: 550px;
+    box-shadow: 3px 2px 7px #0000002d;
+
+}
+
+
+
+.about_this > h1{
+    text-align: center;
+}
+
+.about_this > h2{
+    text-indent: 1rem;
+    margin:20px;
+}
+
+.about_this > p{
+    text-indent: 1rem;
+    margin:20px;
+    text-align: justify;
+}
+
+.line_right{
+    padding: 5px;
+    min-height: 100%;
+    background-image:linear-gradient(270deg, #0000001f, transparent);
+}
+
+.line_left{
+    padding: 5px;
+    background-image:linear-gradient(90deg, #0000003d, transparent);
+}
+
+
+
+.end{
+    background-color: rgba(255, 255, 255, 0.616);
+    padding: 50px;
+	width: 100%;
+	text-align: center;
+}
+
+
+
+body .ui-button.ui-button-secondary.ui-button-outlined, body .ui-splitbutton.ui-button-secondary > .ui-button.ui-button-outlined {
+    background-color: transparent;
+    color: #000000;
+    border: 1px solid;
+}
+
+#j_idt6{
+   margin-top: -8px !important;
+}
+
+.contact > ul{
+	list-style: none;
+}
+
+
+.fotominha > img{
+	max-width: 500px;
+    box-shadow: 3px -4px 12px #00000030;
+}
+
+footer{
+    text-align: center;
+    width: 100%;
+}

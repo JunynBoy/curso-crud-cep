@@ -1,50 +1,102 @@
-<?xml version="1.0" encoding="ISO-8859-1" ?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
 	xmlns:p="http://primefaces.org/ui"
-	xmlns:ui="http://java.sun.com/jsf/facelets">
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	lang="pt-br"
+	>
 <h:head>
-	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<title>Rang-CEP's</title>
 	<link rel="stylesheet" type="text/css" href="resources/css/style.css" />
 	<link rel="shortcut icon" type="image/x-icon" href="resources/imagens/favicon.ico"/>
 </h:head>
 <h:body>
-	<header>
-		<a href="https://rangtecnologia.com.br/index.xhtml"><img src="resources/imagens/rang1.png" alt="logo da rang"/></a>
-        <div class="about">
-            <a href="https://github.com/JunynBoy" target="_blank">GitHub</a>
-            <a href="https://www.linkedin.com/in/marcos-gasparini-97624a218/" target="_blank">Linkedin</a>
+    <header>
+        <img src="resources/imagens/rang1.png" alt="logo da rang"/>
+        <div class="nav">
+            <a href="https://github.com/JunynBoy">GitHub</a>
+            <a href="https://www.linkedin.com/in/marcos-gasparini-97624a218/">Linkedin</a>
         </div>
     </header>
-    <section>
-        <div class="conteudo">
-            <h1>Bem vindo ao meu sistema de cadastro de CEPs!</h1>
-            <div class="div_buttons">
-				<a href="paginas/Buscar.xhtml"><p:button styleClass="ui-button-secondary" value="Buscar" style="margin: 15px; font-size: xx-large;" icon="pi pi-search" /></a>
-		    	<a href="paginas/Cadastro.xhtml"><p:button styleClass="ui-button-secondary" value="Cadastrar" style="margin: 15px; font-size: xx-large; " icon="pi pi-pencil" /></a>
-		    </div>
-		    <h2>ESTE PROJETO � UM TESTE T�CNICO FEITO PELA RANG</h2>
-		    <p>Clique <a href="">aqui</a> para acessar o arquivo do teste</p>
-		    <p>Tenho que dar os devidos cr�tidos ao grande professor Luiz Alberto que inspirou esse projeto, e tamb�m � claro o site da <a href="https://rangtecnologia.com.br/rang-saude.xhtml">Rang Saude!</a></p>
-            <div class="dv1">
-                <iframe width="560" height="315" src="https://www.youtube.com/embed/xdbdfUmPd8c" title="YouTube video player"   ></iframe>
-        	</div>
-        </div>
-    </section>
-    <footer>
-      		<p>
-				Desenvolvido por <SPAN>Marcos Gasparini Junior</SPAN>
-			</p>
-			<div class="social medias">
-			<a></a>
-			<a></a>
-			<a></a>
-			</div>
-    </footer>
-	
-	
+
+        <div class="main">
+            <div class="conteudo_inicial">
+                <p>Olá! meu nome é </p>
+                <h1>Marcos <span class="red">Gasparini</span></h1>
+                <p>Sou um estudante de Ti, estou apaixonado pela área e sonho com a minha primeira oportunidade no mercado de trabalho</p>
+                <div class="botoes">
+                    <h3>Faça uma busca ou cadastre um CEP com os botões abaixo:</h3>
+             		<a href="paginas/Buscar.xhtml"><button class="custom-btn btn-1">Buscar</button></a> 
+                    <a href="paginas/Cadastro.xhtml"><button class="custom-btn btn-1">Cadastrar</button></a> 
+                </div>
+            </div>
+            <div class="foto_eu">
+                <img src="resources/imagens/eu sem fundo.png" alt="Foto de Marcos Gasparini"/>
+            </div>
+
+
+            
+        
+        <section class="carta">
+            <div class="about_this" id="me">
+                <h1>Sobre mim</h1>
+                <p>Busco por uma oportunidade no mercado de trabalho na área de Análise e Desenvolvimento de Sistemas. Sou um estudante e apesar de possuir experiência na área farmacêutica, decidi mudar de carreira para seguir minha paixão nesta área em crescimento. Estou empenhado em documentar meu aprendizado no Github e atualmente estou trabalhando em diversos projetos e cursos para desenvolver ainda mais minhas habilidades e conhecimentos na área.</p>
+                <div class="fotominha">
+                	<img alt="familia gasparini" src="resources/imagens/eunafarmacia.jpg" />
+                </div>
+                <p>Trabalhei com farmácia durante 6 anos e estou lutando para aparender algo que possa me propiorcionar uma perspectiva de crescimento, prezo pelo aprendizado adiquirido diretamente pela prática!</p>
+                <div class="curriculo">
+                	<a href="https://junynboy.github.io/JunynBoy/"><button class="custom-btn btn-1">Clique aqui para ver meu curriculo!</button></a>
+                </div>
+            </div>
+            <div class="line_right line"></div>
+            <div class="line_left line"></div>
+            <div class="about_this" id="projeto">
+                <h1>Sobre este projeto</h1>
+                <p>Este projeto foi desenvolvido baseado em um teste técnico feito pela empresa RANG TECNOLOGIA E DESENVOLVIMENTO DE SISTEMAS LTDA <address>Rua Herminio Perondi, 176, Piso 02 – Flor da Serra do Sul / PR | 85618-000</address>  </p>
+                <h3>tecnologias usadas:</h3>
+                <ul>
+                    <li>JAVA</li>
+                    <li>Java Server Faces</li>
+                    <li>Primefaces</li>
+                    <li>Java Persistence  API - Hibernate</li>
+                    <li>MySQL</li>
+                </ul>
+                <p>Segue abaixo o pdf usado como referência:</p>
+                <iframe src="resources/imagens/teste_tecnico_rang_tecnologia_2023 (2).pdf" frameborder="0"></iframe>
+                <p>Este projeto é meu primeiro contato com as tecnologias descritas acima</p>
+            </div>
+           
+        </section>
+        <article class="end">
+            <div class="contact" >
+                <h1>Formas de contato</h1>
+                <ul>
+                    <li>Whatsapp <strong>14-981022302</strong></li>
+                    <li>Instagram <strong>@marcosgasparinijunior</strong></li>
+                    <li>Linkedin <strong>Marcos Gasparini</strong></li>
+                    <li>Email <strong>marcos.gasparini13@gmail.com</strong></li>
+                </ul>
+            </div>
+
+        </article>
+
+
+
+
+        <footer>
+            <p>
+                Desenvolvido por <SPAN class="red">Marcos Gasparini Junior</SPAN>
+            </p>
+        </footer>
+    
+    </div>
+
+
+
+
 </h:body>
 </html>
