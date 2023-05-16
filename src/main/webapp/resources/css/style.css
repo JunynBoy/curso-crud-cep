@@ -359,7 +359,9 @@ body .ui-button.ui-button-secondary, body .ui-splitbutton.ui-button-secondary > 
 	text-align: center;
 }
 
-
+.ui-card ui-widget ui-widget-content ui-corner-all{
+	margin-top:74px;
+}
 
 body .ui-button.ui-button-secondary.ui-button-outlined, body .ui-splitbutton.ui-button-secondary > .ui-button.ui-button-outlined {
     background-color: transparent;
@@ -367,9 +369,6 @@ body .ui-button.ui-button-secondary.ui-button-outlined, body .ui-splitbutton.ui-
     border: 1px solid;
 }
 
-#j_idt6{
-   margin-top: -8px !important;
-}
 
 .contact > ul{
 	list-style: none;
