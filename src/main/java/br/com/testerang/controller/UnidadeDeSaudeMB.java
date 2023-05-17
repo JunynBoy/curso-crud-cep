@@ -5,7 +5,6 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
-import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -154,6 +153,14 @@ public class UnidadeDeSaudeMB implements Serializable {
 			Message.erro(e.getMessage());
 		}
 	}
+	
+	public void gerarRelatorioAction() {
+		GeradorRelatorio relatorio = new GeradorRelatorio();
+		relatorio.getGeradorRelatorio(this.unidades);
+	}
+	
+	
+	
 
 	public UnidadeDeSaude getUnidadeSaude() {
 		return unidadeSaude;

@@ -27,12 +27,15 @@
 			<p:card style=" background: linear-gradient(167deg, #000000, #db11293b);" >
 				<p:card style="margin:20px;">
 					<h:form id="buscaForm">
+					
 						<div class="busca">
-							<p:inputText value="#{unidadeDeSaudeMB.nomeEstabelecimento}" id="busca" label="busca">Digite uma cidade:</p:inputText>
-							<p:commandButton value="Buscar" icon="pi pi-search" styleClass="ui-button-secondary ui-button-success" action="#{unidadeDeSaudeMB.buscar}"
+							<p:inputText style="margin-left: 3px;" value="#{unidadeDeSaudeMB.nomeEstabelecimento}" id="busca" label="busca">Digite uma cidade:</p:inputText>
+							<p:commandButton style="margin-left: 3px;"  value="Buscar" icon="pi pi-search" styleClass="ui-button-secondary ui-button-success" action="#{unidadeDeSaudeMB.buscar}"
 							update="formResultado buscaForm" id="button" process="buscaForm" />
-							
+							<p:commandButton value="Gerar Relatório" icon="pi pi-check-square" styleClass="ui-button-secondary ui-button-success" style="margin-left: 20px;" action="#{unidadeDeSaudeMB.gerarRelatorioAction}"
+							 id="relatorio"  ajax="false" onclick="this.form.target='_blank'"/>
 						</div>
+						
 					</h:form>
 				</p:card>	
 				
