@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
-import javax.enterprise.context.SessionScoped;
+import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -16,7 +16,7 @@ import br.com.testerang.utility.Message;
 import br.com.testerang.utility.NegocioException;
 
 @Named
-@SessionScoped
+@ViewScoped
 public class UnidadeDeSaudeMB implements Serializable {
 
 	private static final long serialVersionUID = 1L;
