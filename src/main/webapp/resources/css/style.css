@@ -27,6 +27,16 @@ header {
     z-index: 9;
 }
 
+.MeuLogo {
+	PADDING: 8px 0px;
+    color: white;;
+}
+
+.MeuLogo > SPAN {
+	color:RED;
+}
+
+
 .headerfixo{
 	position: initial;
 }
