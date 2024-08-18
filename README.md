@@ -1,7 +1,7 @@
 # CepSystem
 
 
-
+Att: 18/08/2024 - Hoje vejo o quanto este código foi mal escrito, o uso de boas prátiacs e padrões de projeto faz total diferença em um projeto
 Este projeto é o meu primeiro contato com as seguintes tecnologias:
 
 - JAVA
