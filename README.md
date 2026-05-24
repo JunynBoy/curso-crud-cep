@@ -1,35 +1,55 @@
 # CepSystem
-Att: 06/11/2024 - Hoje vejo o quanto este código foi mal escrito. O uso de boas práticas e padrões de projeto faz toda a diferença em um projeto, mas pretendo manter o repositório aqui para, um dia, refatorá-lo.
 
-
-Este projeto é o meu primeiro contato com as seguintes tecnologias:
-
-- JAVA
-- Java Server Faces
-- Primefaces
-- Java Persistence API - Hibernate
-- MySQL
-
-Trata-se de um CRUD simples para cadastro de Unidades de Saúde que atendam a apenas uma localidade.
+Aplicação Java Web com JSF, PrimeFaces, JPA/Hibernate e MySQL para cadastro e consulta de unidades de saúde por faixa de CEP.
 
 ## Funcionalidades
 
-- Cadastro de unidades de saúde que atendem dentro de um raio determinado pelos CEPs de início e fim.
-- Restrição para evitar o cadastro de duas unidades que atendam a mesma localidade ou que tenham o mesmo CNES.
-- Acesso aos dados cadastrados por meio da aba de busca, permitindo a realização de consultas personalizadas.
-- Edição dos dados inseridos seguindo a mesma regra de negócio.
-- Gerar Relatório de todos os dados cadastrados.
-![busca](https://github.com/JunynBoy/CRUD_CepSystem/assets/103968839/0487cc2d-f072-4513-a48e-59ccf4f59042)
-![gerarrelatorio](https://github.com/JunynBoy/CRUD_CepSystem/assets/103968839/f7b68082-11d3-45b3-a0f2-28a9a3020710)
-![relatório gerado](https://github.com/JunynBoy/CRUD_CepSystem/assets/103968839/c7998062-4a5a-4f7c-b7af-909b93958e85)
-![cadastro](https://github.com/JunynBoy/CRUD_CepSystem/assets/103968839/ebf81b45-a7f6-4b6b-bbfb-8ee3437cba2c)
+- Cadastro, edição e remoção de unidades de saúde.
+- Validação de CNES único.
+- Validação de sobreposição entre intervalos de CEP.
+- Busca por nome do estabelecimento, CNES, CEP inicial ou CEP final.
+- Geração de relatório em PDF com JasperReports.
 
+## Stack
 
+- Java 17
+- JSF 2.3
+- PrimeFaces 10
+- CDI/Weld
+- JPA/Hibernate
+- MySQL
+- JasperReports
 
-## Front-end
+## Configuração do banco
 
-O front-end foi desenvolvido com 80% de CSS puro para uma interface intuitiva e responsiva.
-![home](https://github.com/JunynBoy/CRUD_CepSystem/assets/103968839/2330fa0f-c7ee-4cb4-8234-d72c1e78b802)
+Por padrão a aplicação usa:
 
+- URL: `jdbc:mysql://localhost:3306/rangdatabase?useSSL=false&serverTimezone=UTC`
+- Usuário: `root`
+- Senha: vazia
 
-Este projeto foi desenvolvido com base em engenharia reversa, devido à falta de direcionamento específico para essa tecnologia na internet. Gostaria de dar créditos ao Professor Luiz Alberto, que foi minha referência durante o desenvolvimento. Você pode conferir a aula que utilizei como base neste [link](https://www.youtube.com/playlist?list=PLnOrFdw5rkTyj3km618OLh5nCatSELRFh).
+As credenciais podem ser sobrescritas por variáveis de ambiente:
+
+- `DB_DRIVER`
+- `DB_URL`
+- `DB_USER`
+- `DB_PASSWORD`
+- `DB_SCHEMA_STRATEGY`
+- `DB_SHOW_SQL`
+
+Também é possível usar propriedades de sistema equivalentes:
+
+- `database.driver`
+- `database.url`
+- `database.user`
+- `database.password`
+- `database.schema`
+- `database.show_sql`
+
+## Build
+
+```bash
+mvn clean package
+```
+
+O arquivo `.war` é gerado em `target/cepsystem.war`.

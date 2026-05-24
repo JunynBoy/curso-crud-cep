@@ -1,15 +1,13 @@
 package br.com.testerang.controller;
 
 import java.io.Serializable;
+import java.util.Collections;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
-import javax.enterprise.context.SessionScoped;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
-
-import org.apache.commons.lang3.SerializationUtils;
 
 import br.com.testerang.model.UnidadeDeSaude;
 import br.com.testerang.service.UnidadeDeSaudeService;
@@ -17,151 +15,104 @@ import br.com.testerang.utility.Message;
 import br.com.testerang.utility.NegocioException;
 
 @Named
-@SessionScoped
+@ViewScoped
 public class UnidadeDeSaudeMB implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	@Inject
 	private UnidadeDeSaude unidadeSaude;
-
 	private UnidadeDeSaude unidadeSaudeUpdate;
-
-	private String nomeEstabelecimento;
-
+	private List<UnidadeDeSaude> unidades;
+	private String termoBusca;
+	private List<UnidadeDeSaude> resultados;
+	private boolean buscaAtiva;
 
 	@Inject
 	private UnidadeDeSaudeService service;
-	
-	private List<UnidadeDeSaude> unidades;
 
-	private String termoBusca;
-	private List<UnidadeDeSaude> resultados;
+	@Inject
+	private GeradorRelatorio geradorRelatorio;
 
 	@PostConstruct
-	public void carregar() {
-		carregar2();
+	public void init() {
+		unidadeSaude = new UnidadeDeSaude();
+		unidadeSaudeUpdate = new UnidadeDeSaude();
+		resultados = Collections.emptyList();
+		buscaAtiva = false;
+		carregarUnidades();
 	}
 
-	public void carregar2() {
+	public void carregarUnidades() {
 		unidades = service.todasAsUnidades();
 	}
 
 	public void carregaUnidade(UnidadeDeSaude unidadeScreen) {
-		unidadeSaudeUpdate = new UnidadeDeSaude();
-		this.unidadeSaudeUpdate = (UnidadeDeSaude) SerializationUtils.clone(unidadeScreen);
+		unidadeSaudeUpdate = unidadeScreen == null
+				? new UnidadeDeSaude()
+				: new UnidadeDeSaude(unidadeScreen);
 	}
-	
 
 	public void adicionar() {
-		if (!validar()) {
-			try {
-				service.salvar(unidadeSaude);
-				unidadeSaude = new UnidadeDeSaude();
-				carregar2();
-				Message.info("Unidade de saúde salva com sucesso!");
-			} catch (NegocioException e) {
-				Message.erro("Erro ao salvar unidade de saúde: " + e.getMessage());
-			}
+		try {
+			service.salvar(unidadeSaude);
+			unidadeSaude = new UnidadeDeSaude();
+			carregarUnidades();
+			Message.info("Unidade de saúde salva com sucesso.");
+		} catch (NegocioException e) {
+			Message.erro(e.getMessage());
 		}
 	}
 
 	public void excluir(UnidadeDeSaude unidadeDelete) {
 		try {
-			String nomeEstab = unidadeDelete.getNomeEstabelecimento();
+			String nomeEstabelecimento = unidadeDelete.getNomeEstabelecimento();
 			service.remover(unidadeDelete);
-			carregar2();
-			Message.info(nomeEstab + " foi removido");
-			nomeEstab = "";
+			carregarUnidades();
+			Message.info(nomeEstabelecimento + " foi removido.");
 		} catch (NegocioException e) {
 			Message.erro(e.getMessage());
 		}
-
 	}
 
 	public void buscar() {
 		try {
-			var testeLista = service.buscar(nomeEstabelecimento);
-			setResultados(testeLista);
-		} catch (Exception e) {
-			Message.erro(e.getMessage());
-		}
-
-	}
-
-	public boolean validar() {
-
-		boolean encontrouUnidade = false;
-		resultados = service.todasAsUnidades();
-		Integer unidadeCepInicio = Integer.parseInt(unidadeSaude.getCepInicio().replace("-", ""));
-		Integer unidadeCepFinal = Integer.parseInt(unidadeSaude.getCepFinal().replace("-", ""));
-
-		for (UnidadeDeSaude unidade : resultados) {
-			Integer cepInicio = Integer.parseInt(unidade.getCepInicio().replace("-", ""));
-			Integer cepFinal = Integer.parseInt(unidade.getCepFinal().replace("-", ""));
-
-			if (unidadeCepInicio >= cepInicio && unidadeCepInicio <= cepFinal
-					|| unidadeCepFinal <= cepFinal && unidadeCepFinal >= cepInicio) {
-				Message.warn("Já existe uma unidade que atende neste Intervalo de Cep");
-				return encontrouUnidade = true;
-			} else if (unidadeSaude.getCnes().equals(unidade.getCnes())) {
-				Message.warn("Já existe uma unidade com este CNES cadastrado");
-				return encontrouUnidade = true;
+			if (isBlank(termoBusca)) {
+				limparBusca();
+				return;
 			}
 
+			resultados = service.buscar(termoBusca);
+			buscaAtiva = true;
+		} catch (RuntimeException e) {
+			Message.erro("Não foi possível realizar a busca.");
 		}
-		return encontrouUnidade;
+	}
+
+	public void limparBusca() {
+		termoBusca = null;
+		resultados = Collections.emptyList();
+		buscaAtiva = false;
+		carregarUnidades();
 	}
 
 	public void alterarUnidade() {
-
 		try {
-			
-			boolean encontrouUnidade = false;
-			resultados = service.todasMenosUm(unidadeSaudeUpdate);
-			Integer unidadeCepInicio = Integer.parseInt(unidadeSaudeUpdate.getCepInicio().replace("-", ""));
-			Integer unidadeCepFinal = Integer.parseInt(unidadeSaudeUpdate.getCepFinal().replace("-", ""));
-			System.out.println(unidadeCepInicio);
-			for (var unidade : resultados) {
-				Integer cepInicio = Integer.parseInt(unidade.getCepInicio().replace("-", ""));
-				Integer cepFinal = Integer.parseInt(unidade.getCepFinal().replace("-", ""));
-
-				if (unidadeCepInicio >= cepInicio && unidadeCepInicio <= cepFinal
-						|| unidadeCepFinal <= cepFinal && unidadeCepFinal >= cepInicio) {
-
-					Message.warn("Já existe uma unidade que atende neste Intervalo de Cep");
-					encontrouUnidade = true;
-					break;
-				} else if (unidadeSaudeUpdate.getCnes().equals(unidade.getCnes())) {
-					Message.warn("Já existe uma unidade com este CNES cadastrado");
-					encontrouUnidade = true;
-					break;
-				}
-
-			}
-
-			if (!encontrouUnidade) {
-
-				service.salvar(unidadeSaudeUpdate);
-				Message.info(unidadeSaudeUpdate.getNomeEstabelecimento() + " foi alterado com sucesso");
-				unidadeSaudeUpdate = new UnidadeDeSaude();
-				carregar2();
-
-			} else {
-				Message.warn("Não foi possível salvar a sua alteração");
-			}
-		} catch (Exception e) {
+			service.salvar(unidadeSaudeUpdate);
+			Message.info(unidadeSaudeUpdate.getNomeEstabelecimento() + " foi alterado com sucesso.");
+			unidadeSaudeUpdate = new UnidadeDeSaude();
+			carregarUnidades();
+		} catch (NegocioException e) {
 			Message.erro(e.getMessage());
 		}
 	}
-	
+
 	public void gerarRelatorioAction() {
-		GeradorRelatorio relatorio = new GeradorRelatorio();
-		relatorio.getGeradorRelatorio(this.unidades);
+		try {
+			geradorRelatorio.gerar(buscaAtiva ? resultados : unidades);
+		} catch (NegocioException e) {
+			Message.erro(e.getMessage());
+		}
 	}
-	
-	
-	
 
 	public UnidadeDeSaude getUnidadeSaude() {
 		return unidadeSaude;
@@ -169,14 +120,6 @@ public class UnidadeDeSaudeMB implements Serializable {
 
 	public void setUnidadeSaude(UnidadeDeSaude unidadeSaude) {
 		this.unidadeSaude = unidadeSaude;
-	}
-
-	public UnidadeDeSaudeService getService() {
-		return service;
-	}
-
-	public void setService(UnidadeDeSaudeService service) {
-		this.service = service;
 	}
 
 	public List<UnidadeDeSaude> getUnidades() {
@@ -207,11 +150,11 @@ public class UnidadeDeSaudeMB implements Serializable {
 		this.resultados = resultados;
 	}
 
-	public String getNomeEstabelecimento() {
-		return nomeEstabelecimento;
+	public boolean isBuscaAtiva() {
+		return buscaAtiva;
 	}
 
-	public void setNomeEstabelecimento(String nomeEstabelecimento) {
-		this.nomeEstabelecimento = nomeEstabelecimento;
+	private static boolean isBlank(String value) {
+		return value == null || value.trim().isEmpty();
 	}
 }

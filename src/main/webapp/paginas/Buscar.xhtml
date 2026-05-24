@@ -1,101 +1,117 @@
-<?xml version="1.0" encoding="ISO-8859-1" ?>
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
+<?xml version="1.0" encoding="UTF-8" ?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
-	xmlns:f="http://xmlns.jcp.org/jsf/core"
 	xmlns:p="http://primefaces.org/ui"
-	xmlns:ui="http://java.sun.com/jsf/facelets">
-<h:head>
-	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
-	<title>Rang-CEP's</title>
-	<link rel="stylesheet" type="text/css" href="../resources/css/style.css" />
-	<link rel="shortcut icon" type="image/x-icon" href="../resources/imagens/favicon.ico"/>
-</h:head>
-<h:body>
-	<header>
-        <h2 class="MeuLogo" >Juninho<SPAN>.dev</SPAN></h2>
-        <div class="nav">
-            <a href="https://github.com/JunynBoy">GitHub</a>
-            <a href="https://www.linkedin.com/in/marcos-gasparini-97624a218/">Linkedin</a>
-        </div>
-    </header>
-	
-	
-	<section>
-			
-		<div class="layout">	
-			<p:card style=" background: linear-gradient(167deg, #000000, #db11293b);" >
-				<p:card style="margin:20px;">
-					<h:form id="buscaForm">
-					
-						<div class="busca">
-							<p:inputText style="margin-left: 3px;" value="#{unidadeDeSaudeMB.nomeEstabelecimento}" id="busca" label="busca">Digite uma cidade:</p:inputText>
-							<p:commandButton style="margin-left: 3px;"  value="Buscar" icon="pi pi-search" styleClass="ui-button-secondary ui-button-success" action="#{unidadeDeSaudeMB.buscar}"
-							update="formResultado buscaForm" id="button" process="buscaForm" />
-							<p:commandButton value="Gerar Relatório" icon="pi pi-check-square" styleClass="ui-button-secondary ui-button-success" style="margin-left: 20px;" action="#{unidadeDeSaudeMB.gerarRelatorioAction}"
-							 id="relatorio"  ajax="false" onclick="this.form.target='_blank'"/>
-						</div>
-						
-					</h:form>
-				</p:card>	
-				
-				<p:card style="margin:20px;">
-					<h:form id="formResultado">
-						<h3>Resultado da sua busca:</h3>
-						<p:dataTable value="#{unidadeDeSaudeMB.resultados}" var="ur" id="tabela2" rows="5">
-							<p:column headerText="Id" style="width:30px;">
-								<p:outputLabel value="#{ur.id}"/>
-							</p:column>
-							<p:column headerText="Nome do Estabelecimento">
-								<p:outputLabel value="#{ur.nomeEstabelecimento}"/>
-							</p:column>
-							<p:column headerText="CEP de inicio">
-								<p:outputLabel value="#{ur.cepInicio}"/>
-							</p:column>
-							<p:column headerText="CEP final">
-								<p:outputLabel value="#{ur.cepFinal}"/>
-							</p:column>
-							<p:column headerText="CNES">
-								<p:outputLabel value="#{ur.cnes}"/>
-							</p:column>
-						</p:dataTable>		
-					</h:form>
-				</p:card>
-				
-				
-				
-				
-				
-				
-				<p:card style="margin:20px;">
-					<h:form id="form">
-						<h3>Todos os cadastros:</h3>
-						<p:dataTable value="#{unidadeDeSaudeMB.unidades}" var="u" id="tabela" paginator="true" rows="5">
-							<p:column headerText="Id" style="width:30px;">
-								<p:outputLabel value="#{u.id}"/>
-							</p:column>
-							<p:column headerText="Nome do Estabelecimento">
-								<p:outputLabel value="#{u.nomeEstabelecimento}"/>
-							</p:column>
-							<p:column headerText="CEP de inicio">
-								<p:outputLabel value="#{u.cepInicio}"/>
-							</p:column>
-							<p:column headerText="CEP final">
-								<p:outputLabel value="#{u.cepFinal}"/>
-							</p:column>
-							<p:column headerText="CNES">
-								<p:outputLabel value="#{u.cnes}"/>
-							</p:column>
-						</p:dataTable>		
-					</h:form>
-				</p:card>
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	template="/WEB-INF/templates/layout.xhtml">
+
+	<ui:define name="title">Buscar unidades | CepSystem</ui:define>
+
+	<ui:define name="content">
+		<section class="page-heading">
+			<div class="page-heading-copy">
+				<p class="eyebrow">Busca</p>
+				<h1>Consultar unidades</h1>
+			</div>
+
+			<div class="page-actions">
+				<h:link outcome="/paginas/Cadastro" styleClass="button button-page-primary">
+					<span class="pi pi-plus" aria-hidden="true"></span>
+					<span>Cadastrar unidade</span>
+				</h:link>
+			</div>
+		</section>
+
+		<section class="single-column">
+			<p:card styleClass="surface-card">
+				<h:form id="buscaForm">
+					<div class="search-bar">
+						<p:inputText id="termoBusca"
+							value="#{unidadeDeSaudeMB.termoBusca}"
+							placeholder="Nome, CNES ou CEP" />
+
+						<p:commandButton value="Buscar"
+							icon="pi pi-search"
+							action="#{unidadeDeSaudeMB.buscar}"
+							update=":messages :buscaForm :conteudoConsulta"
+							process="@form"
+							styleClass="ui-button-success" />
+
+						<p:commandButton value="Limpar"
+							icon="pi pi-times"
+							action="#{unidadeDeSaudeMB.limparBusca}"
+							update=":messages :buscaForm :conteudoConsulta"
+							process="@this"
+							rendered="#{unidadeDeSaudeMB.buscaAtiva}"
+							styleClass="ui-button-secondary ui-button-outlined" />
+
+						<p:commandButton value="Gerar relatorio"
+							icon="pi pi-file-pdf"
+							action="#{unidadeDeSaudeMB.gerarRelatorioAction}"
+							ajax="false"
+							onclick="this.form.target='_blank'"
+							styleClass="ui-button-secondary" />
+					</div>
+				</h:form>
 			</p:card>
-		</div>
-	</section>
-	<footer>
-            <p>
-                Desenvolvido por <SPAN class="red">Marcos Gasparini Junior</SPAN>
-            </p>
-        </footer>
-</h:body>
-</html>
+
+			<h:panelGroup id="conteudoConsulta" layout="block">
+				<p:card styleClass="surface-card" rendered="#{unidadeDeSaudeMB.buscaAtiva}">
+					<h:form id="resultadoForm">
+						<h2>Resultado da busca</h2>
+						<p:dataTable id="tabelaResultado"
+							value="#{unidadeDeSaudeMB.resultados}"
+							var="ur"
+							rows="8"
+							paginator="true"
+							emptyMessage="Nenhum resultado encontrado.">
+							<p:column headerText="ID" styleClass="id-column">
+								<h:outputText value="#{ur.id}" />
+							</p:column>
+							<p:column headerText="Nome do estabelecimento">
+								<h:outputText value="#{ur.nomeEstabelecimento}" />
+							</p:column>
+							<p:column headerText="CEP inicial">
+								<h:outputText value="#{ur.cepInicio}" />
+							</p:column>
+							<p:column headerText="CEP final">
+								<h:outputText value="#{ur.cepFinal}" />
+							</p:column>
+							<p:column headerText="CNES">
+								<h:outputText value="#{ur.cnes}" />
+							</p:column>
+						</p:dataTable>
+					</h:form>
+				</p:card>
+
+				<p:card styleClass="surface-card" rendered="#{not unidadeDeSaudeMB.buscaAtiva}">
+					<h:form id="todosForm">
+						<h2>Todos os cadastros</h2>
+						<p:dataTable id="tabelaTodos"
+							value="#{unidadeDeSaudeMB.unidades}"
+							var="u"
+							paginator="true"
+							rows="8"
+							emptyMessage="Nenhuma unidade cadastrada.">
+							<p:column headerText="ID" styleClass="id-column">
+								<h:outputText value="#{u.id}" />
+							</p:column>
+							<p:column headerText="Nome do estabelecimento">
+								<h:outputText value="#{u.nomeEstabelecimento}" />
+							</p:column>
+							<p:column headerText="CEP inicial">
+								<h:outputText value="#{u.cepInicio}" />
+							</p:column>
+							<p:column headerText="CEP final">
+								<h:outputText value="#{u.cepFinal}" />
+							</p:column>
+							<p:column headerText="CNES">
+								<h:outputText value="#{u.cnes}" />
+							</p:column>
+						</p:dataTable>
+					</h:form>
+				</p:card>
+			</h:panelGroup>
+		</section>
+	</ui:define>
+</ui:composition>

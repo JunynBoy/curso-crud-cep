@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	lang="pt-BR">
+
+<h:head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title><ui:insert name="title">CepSystem</ui:insert></title>
+	<h:outputStylesheet library="css" name="style.css" />
+</h:head>
+
+<h:body>
+	<header class="app-header">
+		<h:link outcome="/index" styleClass="brand">
+			<span>CepSystem</span>
+		</h:link>
+
+		<nav class="nav" aria-label="Navegação principal">
+			<h:outputLink value="https://github.com/JunynBoy" target="_blank">GitHub</h:outputLink>
+			<h:outputLink value="https://www.linkedin.com/in/marcos-gasparini-97624a218/" target="_blank">LinkedIn</h:outputLink>
+		</nav>
+	</header>
+
+	<p:growl id="messages" showDetail="false" life="4500" />
+
+	<main class="page">
+		<ui:insert name="content" />
+	</main>
+
+	<footer class="app-footer">
+		<span>Desenvolvido por Marcos Gasparini Junior</span>
+	</footer>
+</h:body>
+</html>

@@ -3,26 +3,59 @@ package br.com.testerang.model;
 import java.io.Serializable;
 import java.util.Objects;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 @Entity
-@Table(name = "unidade_de_saude")
-public class UnidadeDeSaude implements Serializable , Base {
+@Table(
+	name = "unidade_de_saude",
+	uniqueConstraints = {
+		@UniqueConstraint(name = "uk_unidade_de_saude_cnes", columnNames = "cnes")
+	}
+)
+public class UnidadeDeSaude implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+
 	@Column(unique = true, nullable = false, length = 7)
 	private String cnes;
+
+	@Column(nullable = false, length = 150)
 	private String nomeEstabelecimento;
+
+	@Column(nullable = false, length = 9)
 	private String cepInicio;
+
+	@Column(nullable = false, length = 9)
 	private String cepFinal;
+
+	public UnidadeDeSaude() {
+	}
+
+	public UnidadeDeSaude(UnidadeDeSaude unidade) {
+		this.id = unidade.id;
+		this.cnes = unidade.cnes;
+		this.nomeEstabelecimento = unidade.nomeEstabelecimento;
+		this.cepInicio = unidade.cepInicio;
+		this.cepFinal = unidade.cepFinal;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
 
 	public String getCnes() {
 		return cnes;
@@ -57,31 +90,23 @@ public class UnidadeDeSaude implements Serializable , Base {
 		this.cepFinal = cepFinal;
 	}
 
-	public Long getId() {
-		return id;
-	}
-	
-	public void setId(Long id) {
-		this.id = id;
+	@Override
+	public boolean equals(Object object) {
+		if (this == object) {
+			return true;
+		}
+
+		if (!(object instanceof UnidadeDeSaude)) {
+			return false;
+		}
+
+		UnidadeDeSaude other = (UnidadeDeSaude) object;
+		return id != null && Objects.equals(id, other.id);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(cepFinal, cepInicio, cnes, id, nomeEstabelecimento);
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		UnidadeDeSaude other = (UnidadeDeSaude) obj;
-		return Objects.equals(cepFinal, other.cepFinal) && Objects.equals(cepInicio, other.cepInicio)
-				&& Objects.equals(cnes, other.cnes) && Objects.equals(id, other.id)
-				&& Objects.equals(nomeEstabelecimento, other.nomeEstabelecimento);
+		return getClass().hashCode();
 	}
 
 	@Override
@@ -89,8 +114,4 @@ public class UnidadeDeSaude implements Serializable , Base {
 		return "UnidadeDeSaude [id=" + id + ", cnes=" + cnes + ", nomeEstabelecimento=" + nomeEstabelecimento
 				+ ", cepInicio=" + cepInicio + ", cepFinal=" + cepFinal + "]";
 	}
-	
-	
-	
-
 }

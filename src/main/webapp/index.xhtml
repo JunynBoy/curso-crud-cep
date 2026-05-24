@@ -1,103 +1,41 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
-	xmlns:f="http://xmlns.jcp.org/jsf/core"
-	xmlns:p="http://primefaces.org/ui"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	lang="pt-br"
-	>
-<h:head>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	<title>Rang-CEP's</title>
-	<link rel="stylesheet" type="text/css" href="resources/css/style.css" />
-	<link rel="shortcut icon" type="image/x-icon" href="resources/imagens/favicon.ico"/>
-</h:head>
-<h:body>
-    <header>
-        <h2 class="MeuLogo" >Juninho<SPAN>.dev</SPAN></h2>
-        <div class="nav">
-            <a href="https://github.com/JunynBoy">GitHub</a>
-            <a href="https://www.linkedin.com/in/marcos-gasparini-97624a218/">Linkedin</a>
-        </div>
-    </header>
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	template="/WEB-INF/templates/layout.xhtml">
 
-        <div class="main">
-            <div class="conteudo_inicial">
-                <p>Olá! meu nome é </p>
-                <h1>Marcos <span class="red">Gasparini</span></h1>
-                <p>Sou um estudante de Ti, estou apaixonado pela área e sonho com a minha primeira oportunidade no mercado de trabalho</p>
-                <div class="botoes">
-                    <h3>Faça uma busca ou cadastre um CEP com os botões abaixo:</h3>
-             		<a href="paginas/Buscar.xhtml"><button class="custom-btn btn-1">Buscar</button></a> 
-                    <a href="paginas/Cadastro.xhtml"><button class="custom-btn btn-1">Cadastrar</button></a> 
-                </div>
-            </div>
-            <div class="foto_eu">
-                <img src="resources/imagens/eu sem fundo.png" alt="Foto de Marcos Gasparini"/>
-            </div>
+	<ui:define name="title">CepSystem</ui:define>
 
+	<ui:define name="content">
+		<section class="hero">
+			<div class="hero-content">
+				<p class="eyebrow">Unidades de saúde</p>
+				<h1>Cadastro e busca por faixa de CEP</h1>
+				<p class="hero-text">
+					Gerencie unidades, consulte cadastros e gere relatórios em PDF com as regras de CNES e intervalo de CEP centralizadas.
+				</p>
+				<div class="actions">
+					<h:link outcome="/paginas/Buscar" value="Buscar unidades" styleClass="button button-primary" />
+					<h:link outcome="/paginas/Cadastro" value="Cadastrar unidade" styleClass="button button-secondary" />
+				</div>
+			</div>
+		</section>
 
-            
-        
-        <section class="carta">
-            <div class="about_this" id="me">
-                <h1>Sobre mim</h1>
-                <p>Busco por uma oportunidade no mercado de trabalho na área de Análise e Desenvolvimento de Sistemas. Sou um estudante e apesar de possuir experiência na área farmacêutica, decidi mudar de carreira para seguir minha paixão nesta área em crescimento. Estou empenhado em documentar meu aprendizado no Github e atualmente estou trabalhando em diversos projetos e cursos para desenvolver ainda mais minhas habilidades e conhecimentos na área.</p>
-                <div class="fotominha">
-                	<img alt="familia gasparini" src="resources/imagens/eunafarmacia.jpg" />
-                </div>
-                <p>Trabalhei com farmácia durante 6 anos e estou lutando para aparender algo que possa me propiorcionar uma perspectiva de crescimento, prezo pelo aprendizado adiquirido diretamente pela prática!</p>
-                <div class="curriculo">
-                	<a href="https://junynboy.github.io/JunynBoy/"><button class="custom-btn btn-1">Clique aqui para ver meu curriculo!</button></a>
-                </div>
-                <p>Acredito ser capaz de acrescentar valor à sua equipe, sem qualquer expectativa salarial. Meu objetivo primordial é o aprendizado contínuo e aprimoramento das habilidades profissionais.</p>
-            </div>
-            <div class="line_right line"></div>
-            <div class="line_left line"></div>
-            <div class="about_this" id="projeto">
-                <h1>Sobre este projeto</h1>
-                <p>Este projeto foi desenvolvido baseado em um teste técnico feito pela empresa RANG TECNOLOGIA E DESENVOLVIMENTO DE SISTEMAS LTDA <address>Rua Herminio Perondi, 176, Piso 02 – Flor da Serra do Sul / PR | 85618-000</address>  </p>
-                <h3>tecnologias usadas:</h3>
-                <ul>
-                    <li>JAVA</li>
-                    <li>Java Server Faces</li>
-                    <li>Primefaces</li>
-                    <li>Java Persistence  API - Hibernate</li>
-                    <li>MySQL</li>
-                </ul>
-                <p>Segue abaixo o pdf usado como referência:</p>
-                <iframe src="resources/imagens/teste_tecnico_rang_tecnologia_2023 (2).pdf" frameborder="0"></iframe>
-                <p>Este projeto é meu primeiro contato com as tecnologias descritas acima</p>
-            </div>
-           
-        </section>
-        <article class="end">
-            <div class="contact" >
-                <h1>Formas de contato</h1>
-                <ul>
-                    <li>Whatsapp <strong>14-981022302</strong></li>
-                    <li>Instagram <strong>@marcosgasparinijunior</strong></li>
-                    <li>Linkedin <strong>Marcos Gasparini</strong></li>
-                    <li>Email <strong>marcos.gasparini13@gmail.com</strong></li>
-                </ul>
-            </div>
+		<section class="content-grid">
+			<article class="info-panel">
+				<h2>Controle de duplicidade</h2>
+				<p>O cadastro impede CNES repetido e faixas de CEP sobrepostas entre unidades.</p>
+			</article>
 
-        </article>
+			<article class="info-panel">
+				<h2>Consulta rápida</h2>
+				<p>A busca localiza registros por nome do estabelecimento, CNES, CEP inicial ou CEP final.</p>
+			</article>
 
-
-
-
-        <footer>
-            <p>
-                Desenvolvido por <SPAN class="red">Marcos Gasparini Junior</SPAN>
-            </p>
-        </footer>
-    
-    </div>
-
-
-
-
-</h:body>
-</html>
+			<article class="info-panel">
+				<h2>Relatório</h2>
+				<p>Os dados cadastrados podem ser exportados em PDF pela tela de busca.</p>
+			</article>
+		</section>
+	</ui:define>
+</ui:composition>
