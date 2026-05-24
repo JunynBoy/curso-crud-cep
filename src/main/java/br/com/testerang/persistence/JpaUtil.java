@@ -3,9 +3,9 @@ package br.com.testerang.persistence;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.Persistence;
 
 public final class JpaUtil {
 
@@ -69,10 +69,10 @@ public final class JpaUtil {
 
 		private Map<String, Object> toJpaProperties() {
 			Map<String, Object> properties = new HashMap<>();
-			properties.put("javax.persistence.jdbc.driver", driver);
-			properties.put("javax.persistence.jdbc.url", url);
-			properties.put("javax.persistence.jdbc.user", user);
-			properties.put("javax.persistence.jdbc.password", password);
+			properties.put("jakarta.persistence.jdbc.driver", driver);
+			properties.put("jakarta.persistence.jdbc.url", url);
+			properties.put("jakarta.persistence.jdbc.user", user);
+			properties.put("jakarta.persistence.jdbc.password", password);
 			properties.put("hibernate.hbm2ddl.auto", schemaStrategy);
 			properties.put("hibernate.show_sql", showSql);
 			return properties;
